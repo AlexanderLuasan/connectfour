@@ -12,18 +12,18 @@ public:
 
 
 private:
+	int traps;
+	bool valid;
 	bool iswinner;
 	int losses;
+	int wins;
+	
 	int bestmove;
 	connect4 current;
 	vector<tree> tolocation;
 };
+tree build(connect4 board, int dep, char side);
+tree buildblank();
+int fact(int i);
 
-class bot
-{
-public:
-	bot();
-	int decide(connect4 board,char side);
-private:
-
-};
+int decide(connect4 board,char side,int skill);

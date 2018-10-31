@@ -10,55 +10,45 @@ connect4::connect4()
 			board[i][ii] = '#';
 		}
 	}
+	player = 'x';
 }
 
-connect4::connect4(char board[boardy][boardx])
+connect4::connect4(char board[boardy][boardx],char turn)
 {
 	for (int i = 0; i < 6; i++) {
 		for (int ii = 0; ii < 7; ii++) {
 			board[i][ii] = board[i][ii];
 		}
 	}
+	player = turn;
 }
 
 void connect4::move(int col)
 {
-	int xcount=0;
-	int ocount=0;
-	for (int i = 0; i < boardy; i++) {
-		for (int ii = 0; ii < boardx; ii++) {
-			if (board[i][ii] == 'x') {
-				xcount += 1;
-			}
-			else if(board[i][ii]=='o') {
-				ocount += 1;
-			}
-		}
+
+	for (int i = boardy-1; i > 0; i--) {
+		board[i][col] = board[i-1][col];
+
 	}
-
-
-	for (int i = 0; i < boardy; i++) {
-		if (board[i][col] == '#') {
-			if (xcount > ocount) {
-				board[i][col] ='o';
-			}
-			else {
-				board[i][col] = 'x';
-			}
-			break;
-		}
+	board[0][col] = '#';
+	board[0][col] = turn();
+	if (player == 'x') {
+		player = 'o';
+	}
+	else {
+		player = 'x';
 	}
 }
 
 bool connect4::validmove(int i)
 {
-	return (board[boardy-1][i]=='#');
+	return (true);
 }
 
 string connect4::tostring()
 {
 	string end="";
-	for (int i = boardy-1; i >-1 ; i--) {
+	for (int i = 0; i <boardy ; i++) {
 		for (int ii = 0; ii < boardx; ii++) {
 			end += board[i][ii];
 		}
@@ -71,12 +61,13 @@ char connect4::winner()//ways to win row col diagonal
 {
 	char inital;
 	bool victory;
+	
 	for (int r = 0; r < boardy; r++) {
-		for (int c = 0; c < boardx-3; c++) {
+		for (int c = 0; c < boardx - numinrow+1; c++) {
 			if (board[r][c] != '#') {
 				inital = board[r][c];
-				victory=true;
-				for (int i = 0; i < 4; i++) {
+				victory = true;
+				for (int i = 0; i < numinrow; i++) {
 					if (board[r][c + i] != inital) {
 						victory = false;
 						break;
@@ -90,11 +81,11 @@ char connect4::winner()//ways to win row col diagonal
 	}
 
 	for (int c = 0; c < boardx; c++) {
-		for (int r = 0; r < boardy-3; r++) {
+		for(int r=0;r<boardy-numinrow+1;r++)
 			if (board[r][c] != '#') {
 				inital = board[r][c];
 				victory = true;
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < numinrow; i++) {
 					if (board[r+i][c] != inital) {
 						victory = false;
 						break;
@@ -104,15 +95,15 @@ char connect4::winner()//ways to win row col diagonal
 					return inital;
 				}
 			}
-		}
+		
 	}
-
-	for (int c = 0; c < boardx - 3; c++) {
-		for (int r = 0; r< boardy - 3; r++) {
+	
+	for (int r = 0; r < boardy-numinrow+1; r++) {
+		for (int c = 0; c < boardx-numinrow+1; c++) {
 			if (board[r][c] != '#') {
 				inital = board[r][c];
 				victory = true;
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < numinrow; i++) {
 					if (board[r + i][c + i] != inital) {
 						victory = false;
 						break;
@@ -122,15 +113,15 @@ char connect4::winner()//ways to win row col diagonal
 					return inital;
 				}
 			}
-			if (board[r][c+3] != '#') {
-				inital = board[r][c+3];
+			if (board[r][c + numinrow-1] != '#') {
+				inital = board[r][c + numinrow-1];
 				victory = true;
-				for (int i = 0; i < 4; i++) {
-
-					if (board[r + i][c - i] != inital) {
+				for (int i = 0; i < numinrow; i++) {
+					if (board[r + i][c + numinrow -1- i] != inital) {
 						victory = false;
 						break;
 					}
+					
 				};
 				if (victory) {
 					return inital;
@@ -138,28 +129,22 @@ char connect4::winner()//ways to win row col diagonal
 			}
 		}
 	}
+	bool stale = true;
+	for (int i = 0; i < boardx; i++) {
+		if (this->validmove(i) == true) {
+			stale = false;
+			break;
+		}
+	}
+	if (stale) {
+		return 's';
+	}
 	return '#';
 }
 
 char connect4::turn()
 {
-	int xcount = 0;
-	int ocount = 0;
-	for (int i = 0; i < boardy; i++) {
-		for (int ii = 0; ii < boardx; ii++) {
-			if (board[i][ii] == 'x') {
-				xcount += 1;
-			}
-			else if (board[i][ii] == 'o') {
-				ocount += 1;
-			}
-		}
-	}
 
-	if (xcount > ocount) {
-		return 'o';
-	}
-	else {
-		return 'x';
-	}
+
+	return player;
 }
