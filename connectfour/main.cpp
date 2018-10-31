@@ -13,8 +13,6 @@ int main() {
 	srand(time(NULL));
 	cout << "connect five" << endl;
 
-	system("pause");
-
 	al_init();
 	al_init_primitives_addon();
 

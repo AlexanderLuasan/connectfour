@@ -123,13 +123,7 @@ tree::tree(connect4 board, int dep,char side)
 
 int tree::decide()
 {
-	cout << "valids: ";
-	for (int i = 0; i < boardx; i++) {
-		if (tolocation[i].valid) {
-			cout << i << " ";
-		}
-	}
-	cout << endl;
+
 	if (bestmove == -1) {
 		int possiblemoves[boardx];
 		int pos=0;
@@ -175,7 +169,7 @@ int tree::decide()
 				return bestwins;
 			}
 			else {
-				cout << "ties" << endl;
+				cout << "unclear" << endl;
 				return possiblemoves[rand() % pos];
 			}
 		}
@@ -186,13 +180,13 @@ int tree::decide()
 					minpos = i;
 				}
 			}
-			cout << "minlose" << endl;
+			cout << "preventing loses" << endl;
 			return minpos;
 		}
 		
 	}
 	else {
-		cout << "bestmove" << endl;
+		cout << "Traped!" << endl;
 		return bestmove;
 	}
 }
