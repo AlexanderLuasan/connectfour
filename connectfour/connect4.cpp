@@ -42,7 +42,12 @@ void connect4::move(int col)
 
 bool connect4::validmove(int i)
 {
-	return (true);
+	if (board[boardy-1][i] == '#') {
+		return (true);
+	}
+	else {
+		return false;
+	}
 }
 
 string connect4::tostring()

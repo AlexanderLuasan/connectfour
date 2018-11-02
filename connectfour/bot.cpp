@@ -114,10 +114,10 @@ tree::tree(connect4 board, int dep,char side)
 	}
 	else if(current.winner() == side) {
 		iswinner = true;
-		wins = 1 * fact(dep+1);
+		wins = 1 * fact(dep+2);
 	}
 	else {
-		losses = 1*fact(dep+1);//add factorial
+		losses = 1*fact(dep+2);//add factorial
 	}
 }
 
@@ -203,7 +203,7 @@ void tree::print(int dep)
 		cout << "numOfLose: " <<tolocation[i].losses << " ";
 		cout << "numOfWins: " <<tolocation[i].wins << " ";
 		cout << endl;
-		if (dep<1&& tolocation[i].traps>0) {
+		if (dep<2&&tolocation[i].traps>0) {
 			tolocation[i].print(dep + 1);
 		}
 	}
