@@ -14,7 +14,7 @@ public:
 	
 	string tostring();//for printing
 	char winner();//return winning side s for stalemate '#' for no one
-	char turn();//retunrs turn
+	char turn();//returns whos turn it is
 
 private:
 	char player;
