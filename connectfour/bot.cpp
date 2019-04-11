@@ -11,6 +11,7 @@ tree::tree()
 	losses = 0;
 	valid = false;
 	wins = 0;
+	traps = 0;
 }
 tree build(connect4 board, int dep, char side)
 {

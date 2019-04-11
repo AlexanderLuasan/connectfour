@@ -73,7 +73,7 @@ int main() {
 
 			case 3:
 				options = true;
-				while (options)
+				while (options)//edit ooptions
 				{
 					cout << "1:playerstarts=" << playerTurn << endl;
 					cout << "2:botskill=" << botskill << endl;
@@ -275,6 +275,6 @@ int main() {
 			}
 		}
 	}
-	system("pause");
+
 	return 0;
 }
